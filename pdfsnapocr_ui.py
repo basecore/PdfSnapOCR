@@ -113,8 +113,8 @@ def build_ui(app):
     app.progress = ttk.Progressbar(main, maximum=100)
     app.progress.grid(row=17, column=0, columnspan=3, sticky="ew", pady=(0, 8))
 
-    app.log = tk.Text(main, height=10, bg="white", fg="#1f2937", relief="flat", font=("Consolas", 9))
-    app.log.grid(row=18, column=0, columnspan=3, sticky="nsew")
+    app.log_box = tk.Text(main, height=10, bg="white", fg="#1f2937", relief="flat", font=("Consolas", 9))
+    app.log_box.grid(row=18, column=0, columnspan=3, sticky="nsew")
     app.bind("<F9>", lambda e: app.stop())
 
 def labels(app):
