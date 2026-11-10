@@ -6,11 +6,40 @@ Das Tool ist unabhängig vom verwendeten PDF-Reader und funktioniert beispielswe
 
 > **Wichtig:** PdfSnapOCR ist für selbst erstellte oder frei verfügbare PDFs gedacht. Beachte bei fremden Inhalten Urheberrecht, Lizenzbedingungen und lokale Regelungen.
 
+## Alle Dateien benötigt
+
+Du benötigst **alle fünf Python-Dateien**. Sie müssen im **selben Ordner** liegen.
+
+```text
+PdfSnapOCR/
+├─ PdfSnapOCR.py
+├─ pdfsnapocr_app.py
+├─ pdfsnapocr_ui.py
+├─ pdfsnapocr_frames.py
+└─ pdfsnapocr_core.py
+```
+
+| Datei | Aufgabe |
+|---|---|
+| `PdfSnapOCR.py` | Startdatei; startet die Anwendung. |
+| `pdfsnapocr_app.py` | Einstellungen, Start/Stopp, automatische Aufnahme, PDF- und OCR-Erstellung. |
+| `pdfsnapocr_ui.py` | Helle Benutzeroberfläche und PDF-Bereich-Auswahl. |
+| `pdfsnapocr_frames.py` | Manuell verschiebbarer und vergrößerbarer PDF-Rahmen. |
+| `pdfsnapocr_core.py` | Screenshots, Doppelseitentrennung, PDF-Erstellung und OCR. |
+
+Starte ausschließlich:
+
+```bat
+python PdfSnapOCR.py
+```
+
+Die anderen Dateien werden automatisch geladen. Starte `pdfsnapocr_app.py`, `pdfsnapocr_ui.py`, `pdfsnapocr_frames.py` oder `pdfsnapocr_core.py` nicht direkt.
+
 ## Funktionen
 
-- Moderne dunkle GUI
+- Helle, moderne GUI
 - Automatische Installation der Python-Abhängigkeiten
-- Freie Auswahl des PDF-Seitenbereichs auf dem Bildschirm
+- Manuell verschiebbarer und vergrößerbarer PDF-Seitenbereich
 - Einzelseitenmodus
 - Doppelseitenmodus mit automatischer Teilung in linke und rechte Seite
 - Automatisches Weiterblättern
@@ -19,6 +48,67 @@ Das Tool ist unabhängig vom verwendeten PDF-Reader und funktioniert beispielswe
 - Optionale OCR-Textebene mit OCRmyPDF und Tesseract
 - Sitzungsordner mit Zeitstempel
 - Lokale Speicherung der Einstellungen
+
+## Installation mit Terminal
+
+Diese Methode ist empfohlen, wenn du Git bereits installiert hast.
+
+1. Öffne in Windows 11 das Startmenü und suche nach **Eingabeaufforderung** oder **Terminal**.
+2. Öffne die Eingabeaufforderung.
+3. Gib nacheinander folgende Befehle ein:
+
+```bat
+git clone https://github.com/basecore/PdfSnapOCR.git
+cd PdfSnapOCR
+python -m venv .venv
+.venv\Scripts\activate
+pip install --upgrade mss pillow pymupdf keyboard ocrmypdf
+python PdfSnapOCR.py
+```
+
+Falls Python nicht gefunden wird, installiere zuerst Python 3.10 oder neuer von https://www.python.org/downloads/ und aktiviere bei der Installation unbedingt **Add Python to PATH**.
+
+Falls Git nicht installiert ist, verwende stattdessen die manuelle ZIP-Installation unten.
+
+## Manuelle Installation per ZIP
+
+Diese Methode benötigt kein Git.
+
+1. Öffne das Repository: https://github.com/basecore/PdfSnapOCR
+2. Klicke oben auf den grünen Button **Code**.
+3. Wähle **Download ZIP**.
+4. Entpacke die heruntergeladene ZIP-Datei, zum Beispiel nach:
+
+```text
+Dokumente\PdfSnapOCR
+```
+
+5. Öffne den entpackten Ordner.
+6. Öffne darin die Eingabeaufforderung: Klicke in die Adressleiste des Datei-Explorers, tippe `cmd` ein und drücke Enter.
+7. Gib nacheinander folgende Befehle ein:
+
+```bat
+python -m venv .venv
+.venv\Scripts\activate
+pip install --upgrade mss pillow pymupdf keyboard ocrmypdf
+python PdfSnapOCR.py
+```
+
+Wichtig: Alle fünf Python-Dateien müssen nach dem Entpacken im selben Ordner liegen. Wenn du nur `PdfSnapOCR.py` herunterlädst, startet das Programm nicht.
+
+## Tesseract OCR
+
+Für die OCR-Textebene wird Tesseract benötigt.
+
+Im Programm auf **„Tesseract prüfen / installieren“** klicken. Das Tool versucht die Installation automatisch über `winget`:
+
+```bat
+winget install --id UB-Mannheim.TesseractOCR --exact --silent
+```
+
+Falls das nicht funktioniert:
+
+https://github.com/UB-Mannheim/tesseract/wiki
 
 ## Richtige Seitenansicht einstellen
 
@@ -38,11 +128,7 @@ Wähle dort:
 - **Zweiseitenansicht** für den Doppelseitenmodus
 - Optional: **Bildlauf aktivieren** deaktivieren, damit jeweils eine vollständige Seite bzw. ein vollständiges Doppelseitenpaar sichtbar ist
 
-In manchen Acrobat-Versionen heißt der Menüpunkt auch **„Seitenanzeige“** oder **„Seitenlayout“**.
-
 ### Andere PDF-Reader
-
-Suche in deinem PDF-Reader nach einer ähnlichen Einstellung:
 
 | Reader | Empfohlene Einstellung |
 |---|---|
@@ -51,8 +137,6 @@ Suche in deinem PDF-Reader nach einer ähnlichen Einstellung:
 | Firefox | Seitenlayout: **Einzelseite** oder **Zwei Seiten** |
 | SumatraPDF | Ansicht: **Einzel Seite** oder **Buchansicht** |
 | Foxit Reader | Ansicht: **Einzelseite** oder **Doppelseite** |
-
-Wichtig: Die Bezeichnungen können sich je nach Programmversion leicht unterscheiden.
 
 ## Doppelseitenmodus
 
@@ -63,63 +147,11 @@ Für den Doppelseitenmodus:
 3. Wähle in PdfSnapOCR den Bereich aus, der **beide Seiten gemeinsam** enthält.
 4. Das Tool teilt den Screenshot automatisch in der horizontalen Mitte.
 
-So sollte der Auswahlbereich aussehen:
-
 ```text
 +------------+------------+
 |   Seite 1  |   Seite 2  |
 +------------+------------+
 ```
-
-Die Ausgabereihenfolge ist:
-
-```text
-Seite 1
-Seite 2
-Seite 3
-Seite 4
-```
-
-## Installation
-
-1. Python 3.10 oder neuer installieren
-2. Während der Installation **Add Python to PATH** aktivieren
-3. Repository klonen:
-
-```bat
-git clone https://github.com/basecore/PdfSnapOCR.git
-cd PdfSnapOCR
-```
-
-4. Doppelklick auf:
-
-```bat
-Start_PdfSnapOCR.bat
-```
-
-Die Startdatei erstellt automatisch eine virtuelle Umgebung und installiert:
-
-```text
-mss
-Pillow
-PyMuPDF
-keyboard
-ocrmypdf
-```
-
-## Tesseract OCR
-
-Für die OCR-Textebene wird Tesseract benötigt.
-
-Im Programm auf **„Tesseract prüfen / installieren“** klicken. Das Tool versucht die Installation automatisch über `winget`:
-
-```bat
-winget install --id UB-Mannheim.TesseractOCR --exact --silent
-```
-
-Falls das nicht funktioniert:
-
-https://github.com/UB-Mannheim/tesseract/wiki
 
 ## Bedienung
 
@@ -131,10 +163,6 @@ https://github.com/UB-Mannheim/tesseract/wiki
 6. Das Tool erstellt automatisch Screenshots und blättert weiter
 7. Am Dokumentende stoppt es automatisch
 8. PDF und optionale OCR-PDF werden erstellt
-
-## OCR und Design
-
-Das sichtbare Design bleibt als Screenshot-Bild erhalten. OCRmyPDF ergänzt eine unsichtbare Textebene, wodurch die PDF durchsuchbar wird und Text kopiert werden kann.
 
 ## Ausgabe
 
@@ -154,7 +182,6 @@ Documents/PdfSnapOCR/
 - Fenster nicht verschieben
 - Taskleiste, Menüs und Scrollbalken möglichst aus dem Aufnahmebereich ausschließen
 - Möglichst hohe, aber noch scharfe Zoomstufe verwenden
-- PNG-Screenshots werden automatisch verwendet
 - Für deutsche Dokumente `deu+eng` empfehlen
 
 ## Problemlösung
