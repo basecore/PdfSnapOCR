@@ -54,8 +54,8 @@ class App(tk.Tk):
         return self.cfg
 
     def log(self, text):
-        self.log.insert("end", f"[{datetime.now():%H:%M:%S}] {text}\n")
-        self.log.see("end")
+        self.log_box.insert("end", f"[{datetime.now():%H:%M:%S}] {text}\n")
+        self.log_box.see("end")
 
     def start(self):
         if self.running:
